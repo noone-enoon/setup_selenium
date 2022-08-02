@@ -1,22 +1,29 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from page_objects.AdminPage import AdminPage
 
 path = "/admin"
 
 
-class Page:
-    BUTTON_LOGIN = (By.CSS_SELECTOR, ".btn.btn-primary")
-    HELP = (By.CSS_SELECTOR, ".help-block [href$='forgotten']")
-    USER = (By.CSS_SELECTOR, ".fa.fa-user")
-    INPUT_PASSWORD = (By.CSS_SELECTOR, "#input-password")
-    INPUT_USERNAME = (By.CSS_SELECTOR, "#input-username")
+def test_wait_admin(driver, url):
+    admin_page = AdminPage(driver, url)
+    admin_page.open(path)
+    admin_page.check_clickable_help_element()
+    admin_page.check_clickable_user_element()
+    admin_page.check_visibility_button_login()
+    admin_page.check_visibility_input_password()
+    admin_page.check_visibility_input_username()
 
 
-def test_catalog(driver, url):
-    driver.get(url + path)
-    WebDriverWait(driver, 2).until(EC.element_to_be_clickable(Page.BUTTON_LOGIN))
-    WebDriverWait(driver, 2).until(EC.element_to_be_clickable(Page.HELP))
-    WebDriverWait(driver, 2).until(EC.visibility_of_element_located(Page.USER))
-    WebDriverWait(driver, 2).until(EC.visibility_of_element_located(Page.INPUT_PASSWORD))
-    WebDriverWait(driver, 2).until(EC.visibility_of_element_located(Page.INPUT_USERNAME))
+def test_add_to_cart(driver, url):
+    admin_page = AdminPage(driver, url)
+    admin_page.open(path)
+    admin_page.login_admin()
+    item_name = admin_page.add_item()
+    assert admin_page.check_add_item(item_name) is True
+
+
+def test_delete_item(driver, url):
+    admin_page = AdminPage(driver, url)
+    admin_page.open(path)
+    admin_page.login_admin()
+    item_name = admin_page.add_item()
+    admin_page.delete_item(item_name)

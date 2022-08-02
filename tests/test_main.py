@@ -1,20 +1,18 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-
-class Page:
-    HEART = (By.CSS_SELECTOR, "#top-links .fa.fa-heart")
-    SEARCH_BUTTON = (By.CSS_SELECTOR, "#search .input-group-btn")
-    NAVBAR = (By.CSS_SELECTOR, ".nav.navbar-nav")
-    TOTAL = (By.CSS_SELECTOR, "#cart-total")
-    MAC_BOOK_AIR_SLIDESHOW = (By.CSS_SELECTOR, "#slideshow0 .swiper-slide-active [alt=MacBookAir]")
+from page_objects.MainPage import MainPage
+from page_objects.elements.Header import Header
 
 
 def test_wait_main(driver, url):
-    driver.get(url)
-    WebDriverWait(driver, 1).until(EC.visibility_of_element_located(Page.TOTAL))
-    WebDriverWait(driver, 1).until(EC.visibility_of_element_located(Page.SEARCH_BUTTON))
-    WebDriverWait(driver, 2).until(EC.visibility_of_element_located(Page.NAVBAR))
-    WebDriverWait(driver, 2).until(EC.visibility_of_element_located(Page.HEART))
-    WebDriverWait(driver, 5).until(EC.visibility_of_all_elements_located(Page.MAC_BOOK_AIR_SLIDESHOW))
+    main_page = MainPage(driver, url)
+    main_page.open()
+    main_page.check_visibility_heart()
+    main_page.check_visibility_navbar()
+    main_page.check_visibility_total()
+    main_page.check_visibility_search_button()
+    main_page.check_presence_of_all_elements_slidehow()
+
+
+def test_switch_exchange_rates(driver, url):
+    header = Header(driver, url)
+    header.open()
+    header.switch_exchange_rates()
