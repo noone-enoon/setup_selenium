@@ -1,8 +1,10 @@
 from page_objects.AdminPage import AdminPage
+import allure
 
 path = "/admin"
 
 
+@allure.title("Ожидания элементов на админ-панели")
 def test_wait_admin(driver, url):
     admin_page = AdminPage(driver, url)
     admin_page.open(path)
@@ -13,6 +15,7 @@ def test_wait_admin(driver, url):
     admin_page.check_visibility_input_username()
 
 
+@allure.title("Добавление нового продукта в админ-панель")
 def test_add_to_cart(driver, url):
     admin_page = AdminPage(driver, url)
     admin_page.open(path)
@@ -21,6 +24,7 @@ def test_add_to_cart(driver, url):
     assert admin_page.check_add_item(item_name) is True
 
 
+@allure.title("Удаление продукта из админ-панели")
 def test_delete_item(driver, url):
     admin_page = AdminPage(driver, url)
     admin_page.open(path)

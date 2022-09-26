@@ -1,8 +1,10 @@
 from page_objects.RegisterPage import RegisterPage
+import allure
 
 path = "/index.php?route=account/register"
 
 
+@allure.title("Ожидания элементов на странице регистрации")
 def test_wait_register(driver, url):
     register_page = RegisterPage(driver, url)
     register_page.open(path)
@@ -13,6 +15,7 @@ def test_wait_register(driver, url):
     register_page.check_presence_of_all_elements_href_login()
 
 
+@allure.title("Регистрация пользователя")
 def test_register_account(driver, url):
     register_page = RegisterPage(driver, url)
     register_page.open(path)

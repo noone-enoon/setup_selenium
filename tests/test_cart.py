@@ -1,8 +1,10 @@
 from page_objects.CartPage import CartPage
+import allure
 
 path = "/laptop-notebook/hp-lp3065"
 
 
+@allure.title("Ожидания элементов на странице карточки продукта")
 def test_wait_cart(driver, url):
     cart_page = CartPage(driver, url)
     cart_page.open(path)

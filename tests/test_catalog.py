@@ -1,8 +1,10 @@
 from page_objects.CatalogPage import CatalogPage
+import allure
 
 path = "/laptop-notebook"
 
 
+@allure.title("Ожидания элементов на странице каталога")
 def test_wait_catalog(driver, url):
     catalog_page = CatalogPage(driver, url)
     catalog_page.open(path)

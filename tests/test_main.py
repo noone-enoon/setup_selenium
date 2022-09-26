@@ -1,7 +1,9 @@
 from page_objects.MainPage import MainPage
 from page_objects.elements.Header import Header
+import allure
 
 
+@allure.title("Ожидания элементов на основной странице")
 def test_wait_main(driver, url):
     main_page = MainPage(driver, url)
     main_page.open()
@@ -12,6 +14,7 @@ def test_wait_main(driver, url):
     main_page.check_presence_of_all_elements_slidehow()
 
 
+@allure.title("Смена валют")
 def test_switch_exchange_rates(driver, url):
     header = Header(driver, url)
     header.open()
