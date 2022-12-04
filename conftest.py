@@ -6,8 +6,8 @@ DRIVER = "C:\drivers_automation"
 
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
-    parser.addoption("--url", default="http://192.168.1.8:8081/")
-    parser.addoption("--executor", default="192.168.1.8")
+    parser.addoption("--url", default="http://192.168.1.4:8081/")
+    parser.addoption("--executor", default="192.168.1.4")
     parser.addoption("--bv", default="105.0")
 
 
