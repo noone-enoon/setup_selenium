@@ -6,7 +6,7 @@ pipeline {
     	catchError {
       	   script {
         	      docker.build("python-web-tests", "-f Dockerfile .")
-      	     }
+      	 }
           }
        }
     }
@@ -15,11 +15,11 @@ pipeline {
            catchError {
               script {
               	docker.image('python-web-tests') {
-                    	sh "pytest -n 2 --reruns 1 ${CMD_PARAMS}"
-                	    }
-                   }
+                    	sh "pytest ${CMD_PARAMS}"
+                	}
+                    }
         	     }
-      	    }
+      	 }
          }
      }
      stage('Reports') {
@@ -31,7 +31,7 @@ pipeline {
       	   reportBuildPolicy: 'ALWAYS',
       	   results: [[path: 'report']]
     	   ])
-  	        }
+  	}
          }
      }
 }
