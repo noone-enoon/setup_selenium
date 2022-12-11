@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build image') {
             steps {
-                echo 'Building..'
+                script {
+                    docker.build("python-web-tests", "-f Dockerfile .")
+                }
             }
         }
         stage('Test') {
